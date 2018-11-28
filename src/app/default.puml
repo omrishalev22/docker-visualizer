@@ -1,12 +1,7 @@
 @startuml
 
-!include global/G_Consts.puml
-/'!include Global/G_Macros.puml
-!include Global/G_Client.puml
-!include Global/G_Oracle.puml'/
-
+!include ../global/G_Consts.puml
 USE_COLOR_BACKGROUND
-
 
 'Objects'
 '=============================='

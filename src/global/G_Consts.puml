@@ -1,0 +1,22 @@
+@startuml
+
+'fixes empty description error
+skinparam monochrome false
+
+!define COLOR_BACKGROUND    #OldLace
+!define COLOR_WEB       #87CEFA
+!define COLOR_SERVICE   #orange
+!define COLOR_CUSTOM_CONTAINER     #lightgreen
+!define COLOR_VRM_APPS    #YellowGreen
+!define COLOR_HTML #00ca99
+!define COLOR_NATIVE_CONTAINER    #LightGreen
+
+!definelong USE_COLOR_BACKGROUND
+    skinparam rectangle {
+            BackgroundColor COLOR_BACKGROUND
+            }
+!enddefinelong
+
+!define BOLD(x) **x**
+
+@enduml

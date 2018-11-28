@@ -2,7 +2,7 @@ version: '2.1'
 services:
   app:
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile_app
     ports:
       - 8888:8888

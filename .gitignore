@@ -1,0 +1,10 @@
+node_modules
+.idea/
+.xml
+src/app/output
+
+### IntelliJ IDEA ###
+*.idea
+*.iws
+*.iml
+*.ipr
