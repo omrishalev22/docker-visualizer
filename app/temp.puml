@@ -1,0 +1,29 @@
+
+@startuml
+class "root" as root {
+    .. Properties ..
+    ROOT: Your Terminal
+    .. Objects ..
+    nodeContainer: [object Object]
+}
+class "nodeContainer" as root.nodeContainer {
+    .. Properties ..
+    title: Node container
+    FROM: node:alpine
+    .. Objects ..
+    RUN: [Array]
+    CMD: [Array]
+}
+class "RUN" as root.nodeContainer.RUN {
+    .. Properties ..
+    0: npm
+    1: install
+}
+class "CMD" as root.nodeContainer.CMD {
+    .. Properties ..
+    0: [&quot;npm&quot;,&quot;start&quot;]
+}
+root.nodeContainer -- root.nodeContainer.RUN
+root.nodeContainer -- root.nodeContainer.CMD
+root -- root.nodeContainer
+@enduml

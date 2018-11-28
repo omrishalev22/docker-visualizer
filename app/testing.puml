@@ -1,0 +1,52 @@
+@startuml
+
+!include global/G_Consts.puml
+/'!include Global/G_Macros.puml
+!include Global/G_Client.puml
+!include Global/G_Oracle.puml'/
+
+USE_COLOR_BACKGROUND
+
+
+'Objects'
+'=============================='
+rectangle "Root - Version:  2.1 "{
+
+        rectangle "Root" COLOR_WEB {
+        rectangle "My Machine" as ROOT
+        rectangle "Terminal" as Terminal
+   }
+   rectangle "Native Containers" as nativeContainers COLOR_NATIVE_CONTAINER {
+           Node "elastic" COLOR_SERVICE {
+rectangle "**IMAGE:** elasticsearch:5.6.3" as IMAGE_elastic
+rectangle "**CONTAINER_NAME:** dynamic_attribute_elastic" as CONTAINER_NAME_elastic
+rectangle "**ENVIRONMENT:** ES_JAVA_OPTS=-Xms512m -Xmx512m" as ENVIRONMENT_elastic
+rectangle "**PORTS:** 11200:9200,11300:9300" as PORTS_elastic
+rectangle "**VOLUMES:** elastic_data:/usr/share/elasticsearch/data" as VOLUMES_elastic
+rectangle "**HEALTHCHECK:** [object Object]" as HEALTHCHECK_elastic
+}
+
+  }
+   rectangle "Custom Containers" as customContainers COLOR_HTML {
+           Node "app" COLOR_VRM_APPS {
+rectangle "**BUILD:** [object Object]" as BUILD_app
+rectangle "**PORTS:** 8888:8888" as PORTS_app
+rectangle "**CONTAINER_NAME:** dynamic_attribute_app" as CONTAINER_NAME_app
+rectangle "**DEPENDS_ON:** [object Object]" as DEPENDS_ON_app
+}
+
+  }
+}
+
+''
+'Relations
+'==============================
+ROOT --> Terminal
+Terminal <---> nativeContainers
+Terminal <---> customContainers
+
+Terminal -[hidden]-> web
+
+
+
+@enduml

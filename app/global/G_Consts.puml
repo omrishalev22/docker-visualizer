@@ -1,0 +1,35 @@
+@startuml
+
+'fixes empty description error
+skinparam monochrome false
+
+!define COLOR_BACKGROUND    #OldLace
+!define COLOR_WEB       #87CEFA
+!define COLOR_SERVICE   #orange
+!define COLOR_CUSTOM_CONTAINER     #lightgreen
+!define COLOR_DATABASE      #Salmon
+!define COLOR_NATIVE_CONTAINER    #LightGreen
+!define COLOR_COMMON_UTILS    #GreenYellow
+!define COLOR_ACTIVE_MQ    #peru
+!define COLOR_DEVICE_SERVER    #Aquamarine
+!define COLOR_TASKS_FRAMEWORK    #DodgerBlue
+!define COLOR_DEVICE_PLUGIN    #DodgerBlue
+!define COLOR_VertuSigningPlugin    #DodgerBlue
+!define COLOR_DATA_COLLECTOR  #DarkOrange
+!define COLOR_AUTHORIZATION_SERVER  #MediumOrchid
+!define COLOR_ANT    #Teal
+!define COLOR_VRM_APPS    #YellowGreen
+!define COLOR_EXTERNAL_LIBRARY  #lightyellow
+!define COLOR_HTML #00ca99
+!define COLOR_MODULE #FFCC00
+
+
+!definelong USE_COLOR_BACKGROUND
+    skinparam rectangle {
+            BackgroundColor COLOR_BACKGROUND
+            }
+!enddefinelong
+
+!define BOLD(x) **x**
+
+@enduml

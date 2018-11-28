@@ -1,0 +1,37 @@
+@startuml
+
+!include global/G_Consts.puml
+/'!include Global/G_Macros.puml
+!include Global/G_Client.puml
+!include Global/G_Oracle.puml'/
+
+USE_COLOR_BACKGROUND
+
+
+'Objects'
+'=============================='
+rectangle "Root - Version:  #CHANGE_VERSION_NUMBER "{
+
+        rectangle "Root" COLOR_WEB {
+        rectangle "My Machine" as ROOT
+        rectangle "Terminal" as Terminal
+   }
+   rectangle "Native Containers" as nativeContainers COLOR_NATIVE_CONTAINER {
+           #ADD_YOUR_NATIVE_CONTAINERS_HERE
+  }
+   rectangle "Custom Containers" as customContainers COLOR_HTML {
+           #ADD_YOUR_CUSTOM_CONTAINERS_HERE
+  }
+}
+
+''
+'Relations
+'==============================
+ROOT --> Terminal
+Terminal <---> nativeContainers
+Terminal <---> customContainers
+
+#CHANGE_RELATIONS
+
+
+@enduml

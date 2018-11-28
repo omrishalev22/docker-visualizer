@@ -1,0 +1,15 @@
+{
+  "name": "docker-visualizer",
+  "version": "1.0.0",
+  "description": "Npm package for visulizing Dockerfile  and Docker-compose.yml",
+  "main": "app/index.js",
+  "dependencies": {
+    "js-yaml": "3.12.0",
+    "yamljs": "0.3.0"
+  },
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "Omri Shalev",
+  "license": "MIT"
+}
