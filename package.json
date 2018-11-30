@@ -2,10 +2,13 @@
   "name": "docker-visualizer",
   "version": "1.0.0",
   "description": "Npm package for visulizing Dockerfile  and Docker-compose.yml",
-  "main": "src/app/index.js",
+  "main": "app/src/index.js",
   "dependencies": {
     "js-yaml": "3.12.0",
-    "yamljs": "0.3.0"
+    "yamljs": "0.3.0",
+    "node-plantuml":"0.7.0", // might no needed comes with graphviz need to chec
+    "graphviz":"0.0.8",
+    "commander": "2.19.0"
   },
   "scripts": {
     "test": "npm run test"

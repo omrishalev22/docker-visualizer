@@ -1,12 +1,14 @@
 const fs = require('fs');
 const YAML = require('yamljs');
+const plantuml = require('node-plantuml');
+
 const logger = require('./common/logger/logger');
 const generator = require('./common/visualizer-generator/generator');
 
 // Dockerfile input
 const DEFAULT_PUML = "default.puml";
-const NEW_PUML_LOCATION = "../output/testing.puml";
-const DOCKER_COMPOSE_DEFAULT = "../testing-files/Docker-compose.yml"; // HARD CODED should accept file from cmd
+const NEW_PUML_LOCATION = "output/testing.puml";
+const DOCKER_COMPOSE_DEFAULT = "testing-files/Docker-compose.yml"; // HARD CODED should accept file from cmd
 
 const dockerComposeFile = fs.createReadStream(DOCKER_COMPOSE_DEFAULT);
 const dockerComposeJson = YAML.parseFile(DOCKER_COMPOSE_DEFAULT);
@@ -31,7 +33,11 @@ dockerComposeFile.on('data', () => {
             if (err) {
                 return console.log(err);
             }
+
+            let gen = plantuml.generate(NEW_PUML_LOCATION);
+            gen.out.pipe(fs.createWriteStream("output/output-file.png"));
         });
+
     });
 });
 

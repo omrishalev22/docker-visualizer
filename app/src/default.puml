@@ -1,6 +1,6 @@
 @startuml
 
-!include ../global/G_Consts.puml
+!include ./global/G_Consts.puml
 USE_COLOR_BACKGROUND
 
 'Objects'
