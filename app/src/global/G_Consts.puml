@@ -10,6 +10,7 @@ skinparam monochrome false
 !define COLOR_VRM_APPS    #YellowGreen
 !define COLOR_HTML #00ca99
 !define COLOR_NATIVE_CONTAINER    #LightGreen
+!define COLOR_NETWORK    #white
 
 !definelong USE_COLOR_BACKGROUND
     skinparam rectangle {

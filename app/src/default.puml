@@ -10,21 +10,25 @@ rectangle "Root - Version:  #CHANGE_VERSION_NUMBER "{
         rectangle "Root" COLOR_WEB {
         rectangle "My Machine" as ROOT
         rectangle "Terminal" as Terminal
-   }
-   rectangle "Native Containers" as nativeContainers COLOR_NATIVE_CONTAINER {
-           #ADD_YOUR_NATIVE_CONTAINERS_HERE
-  }
-   rectangle "Custom Containers" as customContainers COLOR_HTML {
-           #ADD_YOUR_CUSTOM_CONTAINERS_HERE
-  }
+      }
+
+      rectangle "Network" as networkLayer COLOR_NETWORK {
+         rectangle "Native Containers" as nativeContainers COLOR_NATIVE_CONTAINER {
+                 #ADD_YOUR_NATIVE_CONTAINERS_HERE
+        }
+         rectangle "Custom Containers" as customContainers COLOR_HTML {
+                 #ADD_YOUR_CUSTOM_CONTAINERS_HERE
+        }
+     }
+
+
 }
 
 ''
 'Relations
 '==============================
 ROOT --> Terminal
-Terminal <---> nativeContainers
-Terminal <---> customContainers
+Terminal <---> networkLayer
 
 #CHANGE_RELATIONS
 
