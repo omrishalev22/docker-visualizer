@@ -8,7 +8,6 @@ This package helps you visualize docker-compose files in as a simple graph.
 Installation
 ------------
 
-### YAML module for node.js
 
 ```
 npm install docker-visualizer
