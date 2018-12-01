@@ -25,5 +25,60 @@ services:
       interval: 1s
       timeout: 60s
       retries: 120
-volumes:
-  elastic_data:
+  elastic2:
+    image: elasticsearch:5.6.3
+    environment:
+    - "ES_JAVA_OPTS=-Xmsssdaasdsadssdasasdadsadsasdasd512m -Xmx512m"
+    ports:
+    - 11200:9200
+    - 11300:9300
+    volumes:
+    - elastic_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: "curl -sS http://localhost:9200/"
+      interval: 1s
+  elastic3:
+    image: elasticsearch:5.6.3
+    environment:
+    - "ES_JAVA_OPTS=-Xmsssdaasdsadssdasasdadsadsasdasd512m -Xmx512m"
+    ports:
+    - 11200:9200
+    - 11300:9300
+    volumes:
+    - elastic_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: "curl -sS http://localhost:9200/"
+      interval: 1s
+  elastic4:
+    image: elasticsearch:5.6.3
+    environment:
+    - "ES_JAVA_OPTS=-Xmsssdaasdsadssdasasdadsadsasdasd512m -Xmx512m"
+    ports:
+    - 11200:9200
+    - 11300:9300
+    volumes:
+    - elastic_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: "curl -sS http://localhost:9200/"
+      interval: 1s
+  app2:
+    build:
+      context: ..
+      dockerfile: Dockerfile_app
+    ports:
+    - 8888:8888
+    container_name: dynamic_attribute_app
+    depends_on:
+      elastic:
+        condition: service_healthy
+  app3:
+    build:
+      context: ..
+      dockerfile: Dockerfile_app
+    ports:
+    - 8888:8888
+    container_name: dynamic_attribute_app
+    depends_on:
+      elastic:
+        condition: service_healthy
+
