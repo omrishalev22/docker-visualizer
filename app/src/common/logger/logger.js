@@ -1,11 +1,16 @@
+var colors = require('colors');
+
 module.exports = {
-    onError: function (err) {
+    error: function (err) {
         console.log(err);
     },
-    onSuccess: () => {
-        console.log('Successful operation');
+    success: (msg) => {
+        console.log(colors.green(msg));
     },
     info: (msg) => {
         console.log(msg);
+    },
+    warn: (msg) => {
+        console.warn(msg);
     }
 };

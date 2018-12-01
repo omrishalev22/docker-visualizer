@@ -1,10 +1,27 @@
 @startuml
+'===============CONFIGURATION_START=============='
 
-!include ./global/G_Consts.puml
-USE_COLOR_BACKGROUND
+!define COLOR_0    #56a9e8
+!define COLOR_1       #a7dbd7
+!define COLOR_2   #e0e4cc
+!define COLOR_3     #f38631
+!define COLOR_4    #fa6900
+!define COLOR_5 #fa2700
+!define COLOR_NATIVE_CONTAINER    #LightGreen
+!define COLOR_WEB    #LightGreen
+!define COLOR_NETWORK    #white
 
-'Objects'
-'=============================='
+!definelong USE_COLOR_BACKGROUND
+    skinparam rectangle {
+            BackgroundColor COLOR_BACKGROUND
+            }
+!enddefinelong
+
+!define BOLD(x) **x**
+'===============CONFIGURATION_ENDS==============='
+
+
+'================CONTAINERS_START=============='
 rectangle "Root - Version:  #CHANGE_VERSION_NUMBER "{
 
         rectangle "Root" COLOR_WEB {
@@ -16,14 +33,17 @@ rectangle "Root - Version:  #CHANGE_VERSION_NUMBER "{
             #REPLACE_WITH_CONTAINERS_HERE
      }
 }
+'================CONTAINERS_ENDS=============='
 
-''
-'Relations
-'==============================
+
+
+'==============RELATIONS_START================'
 ROOT --> Terminal
 Terminal <---> networkLayer
 
 #CHANGE_RELATIONS
+
+'==============RELATIONS_ENDS================'
 
 
 @enduml
