@@ -2,9 +2,11 @@ node_modules
 .idea/
 .xml
 app/src/output
+*.log
 
 ### IntelliJ IDEA ###
 *.idea
 *.iws
 *.iml
 *.ipr
+
