@@ -29,3 +29,5 @@ program
     });
 
 program.parse(process.argv);
+
+module.exports = require('./main');

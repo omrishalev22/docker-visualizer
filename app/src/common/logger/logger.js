@@ -11,6 +11,6 @@ module.exports = {
         console.log(msg);
     },
     warn: (msg) => {
-        console.warn(msg);
+        console.warn(colors.yellow(msg));
     }
 };

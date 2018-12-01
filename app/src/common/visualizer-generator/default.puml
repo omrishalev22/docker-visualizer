@@ -1,15 +1,16 @@
 @startuml
 '===============CONFIGURATION_START=============='
 
-!define COLOR_0    #56a9e8
-!define COLOR_1       #a7dbd7
-!define COLOR_2   #e0e4cc
-!define COLOR_3     #f38631
-!define COLOR_4    #fa6900
-!define COLOR_5 #fa2700
+!define COLOR_0    #fad089
+!define COLOR_1       #ff9c5b
+!define COLOR_2   #4e9092
+!define COLOR_3     #f5634a
+!define COLOR_4    #ec303c
+!define COLOR_5 #2e6c8c
 !define COLOR_NATIVE_CONTAINER    #LightGreen
-!define COLOR_WEB    #LightGreen
+!define COLOR_WEB    #428b98
 !define COLOR_NETWORK    #white
+!define COLOR_BACKGROUND    #d1dbde
 
 !definelong USE_COLOR_BACKGROUND
     skinparam rectangle {
@@ -22,7 +23,7 @@
 
 
 '================CONTAINERS_START=============='
-rectangle "Root - Version:  #CHANGE_VERSION_NUMBER "{
+rectangle "Root - Version:  #CHANGE_VERSION_NUMBER" COLOR_BACKGROUND{
 
         rectangle "Root" COLOR_WEB {
         rectangle "My Machine" as ROOT

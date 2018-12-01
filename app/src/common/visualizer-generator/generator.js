@@ -81,7 +81,7 @@ function createID() {
 function puml2Png(isUserSpecificOutput,content,cb) {
     fs.writeFile(NEW_PUML_LOCATION, content, 'utf8', function (err) {
         if (err) {
-            return console.log(err);
+            return console.error(err);
         }
 
         logger.info('Creating PNG..');

@@ -27,7 +27,10 @@ sudo apt install graphviz
 
 For Windows users:
 ```
-NEED TO UPDATE 
+- Go to Graphviz download page:
+https://graphviz.gitlab.io/_pages/Download/Download_windows.html
+- install zip file and run installer.
+** you might need to restart computer 
 ```
 
 USAGE
@@ -45,6 +48,7 @@ direcotry your docker-compose.yml is located.
 
 #### Node
 ```
-NEED TO UPDATE 
+const dockervis = require('docker-visualizer')
+dockervis.yaml2puml();
 ```
 
