@@ -38,7 +38,7 @@ After installing globally you can use the command line
 
 ```
 1. Go to the docker-compose.yml directory
-2. run : dockervis build -o <output-path>
+2. run: dockervis build -o <output-path>
 ```
 ** You can run only ``dockervis build``, default output path will be the current 
 direcotry your docker-compose.yml is located.
