@@ -19,7 +19,7 @@ function parseYaml2Puml(data) {
 }
 
 function scan(parent) {
-    var child;
+    let child;
     if (parent instanceof Object && !Array.isArray(parent)) {
         for (child in parent) {
             if (parent.hasOwnProperty(child)) {
@@ -27,7 +27,7 @@ function scan(parent) {
                 dictionary[child] = UID;
                 // create a new cointainer up to level 3 digging
                 body += `${createEmptySpace(counter)} rectangle "${child.toUpperCase()}" as ${UID} COLOR_${counter} { \n`;
-                counter++
+                counter++;
                 scan(parent[child]);
                 body += `${createEmptySpace(counter)}}\n`;
                 counter--; // climbing up to initial levels
@@ -60,8 +60,10 @@ function puml2Png(content) {
             return console.log(err);
         }
 
+        logger.info('Creating PNG..');
         let gen = plantuml.generate(NEW_PUML_LOCATION);
         gen.out.pipe(fs.createWriteStream("output/output-file.png"));
+        logger.info('Completed');
     });
 }
 
@@ -81,14 +83,14 @@ function createEmptySpace(number) {
 
 module.exports = {
     yaml2puml: function () {
+        logger.info('Loading Docker-compose');
         pyyaml.load('/home/shalevo/dev/docker-visualizer/app/src/testing-files/Docker-compose.yml', function (err, jsObject) {
             fs.readFile(DEFAULT_PUML, 'utf8', function (err, data) {
                 err ? logger.onError(err) : ''; // handle readFile errors
-
+                logger.info('Docker-compose file is ready to use');
                 if (err) throw err;
                 let final_content = data.replace(/#REPLACE_WITH_CONTAINERS_HERE/g, parseYaml2Puml(jsObject));
                 puml2Png(final_content);
-
             });
         });
     }

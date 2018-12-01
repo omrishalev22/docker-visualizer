@@ -4,5 +4,8 @@ module.exports = {
     },
     onSuccess: () => {
         console.log('Successful operation');
+    },
+    info: (msg) => {
+        console.log(msg);
     }
 };
