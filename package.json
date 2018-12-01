@@ -18,6 +18,6 @@
   "respository" : "https://github.com/omrishalev22/docker-visualizer",
   "license": "MIT",
   "bin": {
-    "docker-visualizer": "app/src/index.js"
+    "dockervis": "app/src/index.js"
   }
 }
