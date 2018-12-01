@@ -9,9 +9,10 @@ let counter = 0;
 
 
 // Dockerfile input
-const DEFAULT_PUML = path.join(__dirname,"default.puml");
-const NEW_PUML_LOCATION = "/home/shalevo/dev/docker-visualizer/app/src/output/testing.puml";
-const DOCKER_COMPOSE_DEFAULT = "testing-files/Docker-compose.yml"; // HARD CODED should accept file from cmd
+const DEFAULT_PUML = '/home/shalevo/dev/docker-visualizer/app/src/common/visualizer-generator/default.puml';
+const NEW_PUML_LOCATION = '/home/shalevo/dev/docker-visualizer/app/src/testing-files/debug.js'
+const OUTPUT_LOCATION = path.resolve(process.cwd(),'docker-compose-visualization.png');
+
 
 function parseYaml2Puml(data) {
     scan(data); // recursive function

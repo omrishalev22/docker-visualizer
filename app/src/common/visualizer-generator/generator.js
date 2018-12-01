@@ -11,8 +11,8 @@ let counter = 0;
 
 // Dockerfile input
 const DEFAULT_PUML = path.resolve(__dirname, "default.puml");
-const NEW_PUML_LOCATION = "/home/shalevo/dev/docker-visualizer/app/src/output/testing.puml";
-const OUTPUT_LOCATION = path.resolve(process.cwd(),'docker-compose-visualization.png');
+const NEW_PUML_LOCATION = path.resolve(__dirname,'docker-compose.puml');
+const OUTPUT_LOCATION = path.resolve(process.cwd());
 
 function parseYaml2Puml(data) {
     scan(data); // recursive function
@@ -20,7 +20,7 @@ function parseYaml2Puml(data) {
 }
 
 /**
- * Recursivly scans json file, reaches all children
+ * Recursively scans json file, reaches all children
  * counter - help us managing the level of digging - 0 big parent, 1 child of that parent ...
  * dictionary - since each container consists of UID, dictionary manages conenction for future relation sets.
  * it will form an array based on the services available
@@ -118,7 +118,7 @@ function formRelations(dic) {
     if(dic['services'].length > 1){
         const services = dic['services'];
         for (let i = 0; i < services.length - 1; i ++) {
-            str += `${services[i]} -[hidden]down--> ${services[i + 1]} \n`
+            str += `${services[i]} -[hidden]down---> ${services[i + 1]} \n`
         }
     }
 
