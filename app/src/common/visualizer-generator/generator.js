@@ -2,6 +2,7 @@ const fs = require('fs');
 const plantuml = require('node-plantuml');
 const pyyaml = require('pyyaml');
 const logger = require('../logger/logger');
+const path= require('path');
 
 let body = '';
 let dictionary = {};
@@ -9,7 +10,7 @@ let counter = 0;
 
 
 // Dockerfile input
-const DEFAULT_PUML = "/home/shalevo/dev/docker-visualizer/app/src/common/visualizer-generator/default.puml";
+const DEFAULT_PUML = path.join(__dirname,"default.puml");
 const NEW_PUML_LOCATION = "/home/shalevo/dev/docker-visualizer/app/src/output/testing.puml";
 const DOCKER_COMPOSE_DEFAULT = "testing-files/Docker-compose.yml"; // HARD CODED should accept file from cmd
 
@@ -83,7 +84,7 @@ function createEmptySpace(number) {
 
 module.exports = {
     yaml2puml: function () {
-        logger.info('Loading Docker-compose');
+        logger.info('Loading Docker-compose.yml');
         pyyaml.load('/home/shalevo/dev/docker-visualizer/app/src/testing-files/Docker-compose.yml', function (err, jsObject) {
             fs.readFile(DEFAULT_PUML, 'utf8', function (err, data) {
                 err ? logger.onError(err) : ''; // handle readFile errors
