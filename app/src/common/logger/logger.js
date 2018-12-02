@@ -2,7 +2,7 @@ var colors = require('colors');
 
 module.exports = {
     error: function (err) {
-        console.log(err);
+        console.log(err.red);
     },
     success: (msg) => {
         console.log((msg).bold.bgGreen);

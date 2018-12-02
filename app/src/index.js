@@ -5,6 +5,7 @@ const main = require('./main');
 const logger = require('./common/logger/logger');
 const fs = require('fs');
 const path = require('path');
+const pjson = require('.././../package');
 
 function dockerComposeLookup(cb) {
     fs.readdir(process.cwd(), (err, files) => {
@@ -18,8 +19,12 @@ function dockerComposeLookup(cb) {
 }
 
 program
+    .version(pjson.version, '-v, --version')
+    .option('-o, --output', 'Path to output folder');
+
+
+program
     .command('build')
-    .option('-o, --output', 'Path to output folder')
     .action(function (userInput) {
         let outputPath = typeof userInput !== "string" ? logger.warn('** No output path given, will be saved on'
                                                                      + ' current'
@@ -29,9 +34,10 @@ program
         dockerComposeLookup((file) => {
             file ? main.visualize(file, outputPath) : '';
         })
-
     });
 
 program.parse(process.argv);
+
+program.args.length === 0 ? program.help() : ''; // console help in case no command was mentioned
 
 module.exports = require('./main');

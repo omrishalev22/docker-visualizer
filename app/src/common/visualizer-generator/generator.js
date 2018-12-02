@@ -13,6 +13,7 @@ let counter = 0;
 const DEFAULT_PUML = path.resolve(__dirname, "default.puml");
 const NEW_PUML_LOCATION = path.resolve(__dirname,'docker-compose.puml');
 const OUTPUT_LOCATION = path.resolve(process.cwd());
+const OUTPUT_FILENAME = "docker-compose-visualization.png";
 
 function parseYaml2Puml(data) {
     scan(data); // recursive function
@@ -22,7 +23,7 @@ function parseYaml2Puml(data) {
 /**
  * Recursively scans json file, reaches all children
  * counter - help us managing the level of digging - 0 big parent, 1 child of that parent ...
- * dictionary - since each container consists of UID, dictionary manages conenction for future relation sets.
+ * dictionary - since each container consists of UID, dictionary manages connection for future relation sets.
  * it will form an array based on the services available
  * @param parent
  */
@@ -85,13 +86,14 @@ function puml2Png(isUserSpecificOutput,content) {
         }
 
         logger.info('Creating PNG..');
-        let gen = plantuml.generate(NEW_PUML_LOCATION);
-        let outputPath = isUserSpecificOutput ? isUserSpecificOutput : OUTPUT_LOCATION;
+        const gen = plantuml.generate(NEW_PUML_LOCATION);
+        const outputPath = isUserSpecificOutput && checkIsDirectory(isUserSpecificOutput) ? isUserSpecificOutput : OUTPUT_LOCATION;
+
         try {
-            let stream = gen.out.pipe(fs.createWriteStream(path.resolve(outputPath,"docker-compose-visualization.png")));
+            let stream = gen.out.pipe(fs.createWriteStream(path.resolve(outputPath,OUTPUT_FILENAME)));
             stream.on('finish',()=>{
-                logger.info('docker-compose-visualization.png was created successfully');
-                logger.success('File is in: '+ outputPath);
+                logger.info( OUTPUT_FILENAME + ' was created successfully');
+                logger.success('File is in -> '+ outputPath);
             })
         }
         catch (e) {
@@ -103,7 +105,7 @@ function puml2Png(isUserSpecificOutput,content) {
 }
 
 /*
-FUnction used in development mode only
+Function used in development mode only
 * */
 function createEmptySpace(number) {
     let str = '';
@@ -135,12 +137,20 @@ function formRelations(dic) {
     return str;
 }
 
+function checkIsDirectory(path){
+    if (fs.existsSync(path)) {
+        return true;
+    }
+    logger.warn('Invalid output path. using current directory as output instead');
+    return false;
+}
+
 module.exports = {
     visualize: (file,isUserSpecificOutput) => {
         logger.info('Loading docker-compose.yml');
         pyyaml.load(file, function (err, jsObject) {
             fs.readFile(DEFAULT_PUML, 'utf8', function (err, data) {
-                err ? logger.onError(err) : ''; // handle readFile errors
+                err ? logger.error(err) : ''; // handle readFile errors
                 logger.info('docker-compose file is ready to use');
                 if (err) throw err;
                 let final_content = data
