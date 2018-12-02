@@ -149,7 +149,8 @@ module.exports = {
     visualize: (file,isUserSpecificOutput) => {
         logger.info('Loading docker-compose.yml');
         pyyaml.load(file, function (err, jsObject) {
-            err ? logger.error('File could not be loaded. Please check the given path: ' + file) : ''; // handle readFile errors
+            // handle readFile errors
+            err ? logger.error('File could not be loaded. Please check the given path: ' + file) && process.exit(-1) : '';
             fs.readFile(DEFAULT_PUML, 'utf8', function (err, data) {
                 logger.info('docker-compose file is ready to use');
                 if (err) throw err;
