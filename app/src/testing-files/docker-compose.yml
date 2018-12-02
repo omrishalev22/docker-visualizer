@@ -1,15 +1,5 @@
 version: '2.1'
 services:
-  app:
-    build:
-      context: ..
-      dockerfile: Dockerfile_app
-    ports:
-      - 8888:8888
-    container_name: dummy_text
-    depends_on:
-      elastic:
-        condition: service_healthy
   elastic:
     image: elasticsearch:5.6.3
     container_name: testing
@@ -25,60 +15,27 @@ services:
       interval: 1s
       timeout: 60s
       retries: 120
-  elastic2:
-    image: elasticsearch:5.6.3
+  app:
+    build: .
     environment:
-    - "ES_JAVA_OPTS=-Xmsssdaasdsadssdasasdadsadsasdasd512m -Xmx512m"
+    - "ES_JAVA_OPTS=-dummy -Xmx512m"
     ports:
     - 11200:9200
     - 11300:9300
     volumes:
-    - elastic_data:/usr/share/elasticsearch/data
+    - dummytext
     healthcheck:
       test: "curl -sS http://localhost:9200/"
       interval: 1s
-  elastic3:
-    image: elasticsearch:5.6.3
+  redis:
+    image: redis
     environment:
-    - "ES_JAVA_OPTS=-Xmsssdaasdsadssdasasdadsadsasdasd512m -Xmx512m"
+    - "ES_JAVA_OPTS=-dumy -Xmx512m"
     ports:
     - 11200:9200
     - 11300:9300
     volumes:
-    - elastic_data:/usr/share/elasticsearch/data
+    - dummytext
     healthcheck:
       test: "curl -sS http://localhost:9200/"
       interval: 1s
-  elastic4:
-    image: elasticsearch:5.6.3
-    environment:
-    - "ES_JAVA_OPTS=-Xmsssdaasdsadssdasasdadsadsasdasd512m -Xmx512m"
-    ports:
-    - 11200:9200
-    - 11300:9300
-    volumes:
-    - elastic_data:/usr/share
-    healthcheck:
-      test: "curl -sS http://localhost:9200/"
-      interval: 1s
-  app2:
-    build:
-      context: ..
-      dockerfile: Dockerfile_app
-    ports:
-    - 8888:8888
-    container_name: dummy_text
-    depends_on:
-      elastic:
-        condition: service_healthy
-  app3:
-    build:
-      context: ..
-      dockerfile: Dockerfile_app
-    ports:
-    - 8888:8888
-    container_name: dummy_text
-    depends_on:
-      elastic:
-        condition: service_healthy
-

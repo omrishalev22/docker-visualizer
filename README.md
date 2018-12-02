@@ -5,6 +5,11 @@ This package helps you visualize docker-compose
 files in as a simple graph. 
 Docker-visualizer offers both node implementation and CLI.
 
+DEMO
+------------
+![alt text](https://raw.githubusercontent.com/omrikoss22/docker-visualizer/master/example.png)
+
+
 Installation
 ------------
 ```
