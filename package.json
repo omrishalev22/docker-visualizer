@@ -1,6 +1,6 @@
 {
   "name": "docker-visualizer",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Npm package for visualizing docker-compose.yml files",
   "main": "app/src/index.js",
   "dependencies": {
