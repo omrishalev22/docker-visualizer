@@ -7,7 +7,7 @@ Docker-visualizer offers both node implementation and CLI.
 
 DEMO
 ------------
-![alt text](https://raw.githubusercontent.com/omrikoss22/docker-visualizer/master/example.png)
+![alt text](https://github.com/omrishalev22/docker-visualizer/blob/master/example.png?raw=true)
 
 
 Installation
