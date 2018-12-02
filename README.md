@@ -49,11 +49,11 @@ After installing globally you can use the command line
 2. run: dockervis build -o <output-path>
 ```
 ** You can run only ``dockervis build``, default output path will be the current 
-direcotry your docker-compose.yml is located.
+directory your docker-compose.yml is located.
 
 #### Node
 ```
 const dockervis = require('docker-visualizer')
-dockervis.yaml2puml();
+dockervis.visualize();
 ```
 
