@@ -19,5 +19,12 @@
   "license": "MIT",
   "bin": {
     "dockervis": "app/src/index.js"
-  }
+  },
+  "keywords": [
+    "docker",
+    "visual",
+    "graph",
+    "docker-compose",
+    "yaml2puml"
+  ]
 }
