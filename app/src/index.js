@@ -3,27 +3,31 @@
 var program = require('commander');
 const main = require('./main');
 const logger = require('./common/logger/logger');
-var fs = require('fs');
+const fs = require('fs');
+const path = require('path');
 
 function dockerComposeLookup(cb) {
     fs.readdir(process.cwd(), (err, files) => {
-        if (files.some(file => file === 'Docker-compose.yml')) {
-            cb(true)
+        if (files.some(file => file === 'docker-compose.yml')) {
+            cb(path.resolve(process.cwd(), 'docker-compose.yml'))
         } else {
             cb(false);
-            logger.info(`Couldn't find a Docker-compose.yml file in this directory`);
+            logger.info(`Couldn't find a docker-compose.yml file in this directory`);
         }
     })
 }
-
 
 program
     .command('build')
     .option('-o, --output', 'Path to output folder')
     .action(function (userInput) {
-        let outputPath = typeof userInput !== "string" ? console.warn('No output path given, will be saved on current directory') : userInput;
-        dockerComposeLookup((isFile) => {
-            isFile ? main.yaml2puml(outputPath) : '';
+        let outputPath = typeof userInput !== "string" ? logger.warn('** No output path given, will be saved on'
+                                                                     + ' current'
+                                                                     + ' directory, use -o <path> for specific'
+                                                                     + ' output path'
+                                                                     + ' **') : userInput;
+        dockerComposeLookup((file) => {
+            file ? main.visualize(file, outputPath) : '';
         })
 
     });

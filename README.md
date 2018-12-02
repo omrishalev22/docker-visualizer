@@ -3,7 +3,7 @@ Docker-visualizer
 
 This package helps you visualize docker-compose 
 files in as a simple graph. 
-Docker-visalize offers both node implementation and CLI.
+Docker-visualizer offers both node implementation and CLI.
 
 Installation
 ------------

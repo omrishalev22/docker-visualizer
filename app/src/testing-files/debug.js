@@ -122,7 +122,7 @@ function formRelations(dic) {
     return str;
 }
 
-pyyaml.load('/home/shalevo/dev/docker-visualizer/app/src/testing-files/Docker-compose.yml', function (err, jsObject) {
+pyyaml.load('/home/shalevo/dev/docker-visualizer/app/src/testing-files/docker-compose.yml', function (err, jsObject) {
     fs.readFile(DEFAULT_PUML, 'utf8', function (err, data) {
         if (err) throw err;
         let final_content = data

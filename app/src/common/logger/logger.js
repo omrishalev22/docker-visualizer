@@ -5,12 +5,12 @@ module.exports = {
         console.log(err);
     },
     success: (msg) => {
-        console.log(colors.green(msg));
+        console.log((msg).bold.bgGreen);
     },
     info: (msg) => {
-        console.log(msg);
+        console.log(msg.italic);
     },
     warn: (msg) => {
-        console.warn(colors.yellow(msg));
+        console.warn((msg).yellow);
     }
 };

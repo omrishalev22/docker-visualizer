@@ -78,7 +78,7 @@ function createID() {
 }
 
 
-function puml2Png(isUserSpecificOutput,content,cb) {
+function puml2Png(isUserSpecificOutput,content) {
     fs.writeFile(NEW_PUML_LOCATION, content, 'utf8', function (err) {
         if (err) {
             return console.error(err);
@@ -88,15 +88,17 @@ function puml2Png(isUserSpecificOutput,content,cb) {
         let gen = plantuml.generate(NEW_PUML_LOCATION);
         let outputPath = isUserSpecificOutput ? isUserSpecificOutput : OUTPUT_LOCATION;
         try {
-            gen.out.pipe(fs.createWriteStream(path.resolve(outputPath,"docker-compose-visualization.png")));
+            let stream = gen.out.pipe(fs.createWriteStream(path.resolve(outputPath,"docker-compose-visualization.png")));
+            stream.on('finish',()=>{
+                logger.info('docker-compose-visualization.png was created successfully');
+                logger.success('File is in: '+ outputPath);
+            })
         }
         catch (e) {
             logger.error(e);
             process.exit(-1);
         }
-        logger.success('docker-compose-visualization.png was created successfully');
-        logger.info('File is in: '+ outputPath);
-        cb();
+
     });
 }
 
@@ -134,21 +136,18 @@ function formRelations(dic) {
 }
 
 module.exports = {
-    yaml2puml: (isUserSpecificOutput,cb) => {
-        logger.info('Loading Docker-compose.yml');
-        pyyaml.load('/home/shalevo/dev/docker-visualizer/app/src/testing-files/Docker-compose.yml', function (err, jsObject) {
+    visualize: (file,isUserSpecificOutput) => {
+        logger.info('Loading docker-compose.yml');
+        pyyaml.load(file, function (err, jsObject) {
             fs.readFile(DEFAULT_PUML, 'utf8', function (err, data) {
                 err ? logger.onError(err) : ''; // handle readFile errors
-                logger.info('Docker-compose file is ready to use');
+                logger.info('docker-compose file is ready to use');
                 if (err) throw err;
                 let final_content = data
                     .replace(/#CHANGE_VERSION_NUMBER/g, jsObject.version)
                     .replace(/#REPLACE_WITH_CONTAINERS_HERE/g, parseYaml2Puml(jsObject))
                     .replace(/#CHANGE_RELATIONS/g, formRelations(dictionary));
-                puml2Png(isUserSpecificOutput,final_content,()=>{
-                    cb();
-                });
-
+                puml2Png(isUserSpecificOutput,final_content)
             });
         });
     }
