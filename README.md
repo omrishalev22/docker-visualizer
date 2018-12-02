@@ -54,6 +54,8 @@ directory your docker-compose.yml is located.
 #### Node
 ```
 const dockervis = require('docker-visualizer')
-dockervis.visualize();
+dockervis.visualize(file , output?);
 ```
+Path to file is mandatory, output is optional, if not passed
+default will be current directory.
 
