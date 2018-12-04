@@ -2,6 +2,7 @@ node_modules
 .idea/
 .xml
 app/src/output
+app/src/output/testing-files/
 *.log
 
 ### IntelliJ IDEA ###
