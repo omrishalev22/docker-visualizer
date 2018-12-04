@@ -81,13 +81,13 @@ function createID() {
 function puml2Png(outputPath,customName,keepPumlFile,content,cb) {
     const outputDirectory = outputPath && checkIsDirectory(outputPath) ? outputPath : OUTPUT_LOCATION;
     const NEW_PUML_LOCATION = path.resolve(outputDirectory,'docker-compose.puml');
-    const gen = plantuml.generate(NEW_PUML_LOCATION);
     const fileName = customName ? customName + '.png' : OUTPUT_FILENAME;
     const file = path.resolve(outputPath,fileName);
     fs.writeFile(NEW_PUML_LOCATION, content, 'utf8', function (err) {
         if (err) {
             return logger.error(err);
         }
+        const gen = plantuml.generate(NEW_PUML_LOCATION);
         logger.info('Creating PNG...');
         try {
             let stream = gen.out.pipe(fs.createWriteStream(file));
