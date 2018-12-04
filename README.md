@@ -46,16 +46,24 @@ After installing globally you can use the command line
 
 ```
 1. Go to the docker-compose.yml directory
-2. run: dockervis build -o <output-path>
+2. run: dockervis build  <output-path>
 ```
-** You can run only ``dockervis build``, default output path will be the current 
-directory your docker-compose.yml is located.
+ Examples for advanced commands:
+ ```
+ dockervis build  ../../outputPath -n customFileName -c
+ ```
+ - -n or --name will change the default name given to the output file
+ - -c or --custom will keep the puml created alongside program for further customization. 
 
 #### Node
 ```
 const dockervis = require('docker-visualizer')
-dockervis.visualize(file , output?);
+dockervis.visualize(file, output, customName?, keepPumlFile?).then(res => {
+    // res will be given after PNG file was created
+});
 ```
-Path to file is mandatory, output is optional, if not passed
-default will be current directory.
+Output path to file is mandatory, customName is optional.
+KeepPumlfile option keeps raw PUML generated from docker-compose.yml, helpful for
+further customization
+** for working with PUML files in your IDE, you should install PlantUML plugin
 

@@ -11,7 +11,6 @@ let counter = 0;
 
 // Dockerfile input
 const DEFAULT_PUML = path.resolve(__dirname, "default.puml");
-const NEW_PUML_LOCATION = path.resolve(__dirname,'docker-compose.puml');
 const OUTPUT_LOCATION = path.resolve(process.cwd());
 const OUTPUT_FILENAME = "docker-compose-visualization.png";
 
@@ -79,21 +78,33 @@ function createID() {
 }
 
 
-function puml2Png(isUserSpecificOutput,content) {
+function puml2Png(outputPath,customName,keepPumlFile,content,cb) {
+    const outputDirectory = outputPath && checkIsDirectory(outputPath) ? outputPath : OUTPUT_LOCATION;
+    const NEW_PUML_LOCATION = path.resolve(outputDirectory,'docker-compose.puml');
+    const gen = plantuml.generate(NEW_PUML_LOCATION);
+    const fileName = customName ? customName + '.png' : OUTPUT_FILENAME;
+    const file = path.resolve(outputPath,fileName);
     fs.writeFile(NEW_PUML_LOCATION, content, 'utf8', function (err) {
         if (err) {
-            return console.error(err);
+            return logger.error(err);
         }
-
-        logger.info('Creating PNG..');
-        const gen = plantuml.generate(NEW_PUML_LOCATION);
-        const outputPath = isUserSpecificOutput && checkIsDirectory(isUserSpecificOutput) ? isUserSpecificOutput : OUTPUT_LOCATION;
-
+        logger.info('Creating PNG...');
         try {
-            let stream = gen.out.pipe(fs.createWriteStream(path.resolve(outputPath,OUTPUT_FILENAME)));
+            let stream = gen.out.pipe(fs.createWriteStream(file));
             stream.on('finish',()=>{
-                logger.info( OUTPUT_FILENAME + ' was created successfully');
-                logger.success('File is in -> '+ outputPath);
+                logger.info( fileName + ' was created successfully');
+                logger.success('File is in the following directory:  '+ outputDirectory);
+
+                // if no mentioned specifically by user (-c option), PUML file will be deleted for png generation
+                if(!keepPumlFile){
+                    logger.warn('Generated PUML was deleted, to keep it for self customization type -c');
+                    fs.unlinkSync(NEW_PUML_LOCATION)
+                }
+                cb({resultCode:200,message:'Graph was generated successfully'})
+            })
+
+            stream.on('error',(err)=>{
+                logger.error('Oops something went wrong please try again..');
             })
         }
         catch (e) {
@@ -146,7 +157,7 @@ function checkIsDirectory(path){
 }
 
 module.exports = {
-    visualize: (file,isUserSpecificOutput) => {
+    visualize: (file,output,customName,keepPumlFile,cb) => {
         logger.info('Loading docker-compose.yml');
         pyyaml.load(file, function (err, jsObject) {
             // handle readFile errors
@@ -163,7 +174,9 @@ module.exports = {
                     .replace(/#CHANGE_VERSION_NUMBER/g, jsObject.version)
                     .replace(/#REPLACE_WITH_CONTAINERS_HERE/g, parseYaml2Puml(jsObject))
                     .replace(/#CHANGE_RELATIONS/g, formRelations(dictionary));
-                puml2Png(isUserSpecificOutput,final_content)
+                puml2Png(output,customName,keepPumlFile,final_content,(res)=>{
+                    cb(res);
+                })
             });
         });
     }
